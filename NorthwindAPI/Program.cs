@@ -38,14 +38,11 @@ builder.Services.AddControllers();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment() || app.Environment.IsProduction() || app.Environment.IsStaging())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(opt => {
-        opt.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-        opt.RoutePrefix = "swagger";
-    });
-}
+app.UseSwagger();
+app.UseSwaggerUI(opt => {
+    opt.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+    //opt.RoutePrefix = "/swagger";
+});
 
 //app.UseHttpsRedirection();
 app.MapGet("/products", async() =>
