@@ -41,9 +41,8 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI(opt => {
     opt.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-    //opt.RoutePrefix = "/swagger";
 });
-
+app.UseCors(builder => builder.AllowAnyOrigin());
 //app.UseHttpsRedirection();
 app.MapGet("/products", async() =>
 {
