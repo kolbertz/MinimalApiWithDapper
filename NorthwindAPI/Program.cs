@@ -42,7 +42,12 @@ app.UseSwagger();
 app.UseSwaggerUI(opt => {
     opt.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
 });
-app.UseCors(builder => builder.AllowAnyOrigin());
+
+//app.UseCors(builder => builder.AllowAnyOrigin());
+app.UseCors(builder => builder
+.AllowAnyOrigin()
+.AllowAnyMethod()
+.AllowAnyHeader());
 //app.UseHttpsRedirection();
 app.MapGet("/products", async() =>
 {
