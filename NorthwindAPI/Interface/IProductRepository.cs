@@ -6,6 +6,8 @@ namespace NorthwindAPI.Interface
     {
         Task<IReadOnlyList<Products>> GetAllProducts();
 
+        Task<IReadOnlyList<Products>> GetFilteredProductList(ProductFilter productFilter);
+
         Task<Products> GetProductById(int id);
 
         Task<Products> CreateProduct(ProductCreateDTO product);

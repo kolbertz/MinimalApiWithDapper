@@ -44,11 +44,12 @@ app.UseSwaggerUI(opt => {
 });
 
 //app.UseCors(builder => builder.AllowAnyOrigin());
-app.UseCors(builder => builder
-.AllowAnyOrigin()
-.AllowAnyMethod()
-.AllowAnyHeader());
+//app.UseCors(builder => builder
+//.AllowAnyOrigin()
+//.AllowAnyMethod()
+//.AllowAnyHeader());
 //app.UseHttpsRedirection();
+
 app.MapGet("/products", async() =>
 {
     IReadOnlyList<Products> productsList = null;
@@ -59,7 +60,16 @@ app.MapGet("/products", async() =>
     return productsList;
 }).WithMetadata(new SwaggerOperationAttribute("Method uses Dapper!"));
 
-app.MapGet("/products/{id}", async(int id) =>
+app.MapPost("/products/{product}", async (ProductCreateDTO product) => {
+    Products products = null;
+    using (var scope = app.Services.CreateScope())
+    {
+        products = await scope.ServiceProvider.GetRequiredService<IProductRepository>().CreateProduct(product).ConfigureAwait(false);
+    }
+    return products;
+}).WithMetadata(new SwaggerOperationAttribute("Method uses EF Core!"));
+
+app.MapGet("/products/{id}", async (int id) =>
 {
     Products products = null;
     using (var scope = app.Services.CreateScope())
@@ -69,15 +79,7 @@ app.MapGet("/products/{id}", async(int id) =>
     return products;
 }).WithMetadata(new SwaggerOperationAttribute("Method uses Dapper!"));
 
-app.MapPost("/products/{product}", async(ProductCreateDTO product) => {
-    Products products = null;
-    using (var scope = app.Services.CreateScope())
-    {
-        products = await scope.ServiceProvider.GetRequiredService<IProductRepository>().CreateProduct(product).ConfigureAwait(false);
-    }
-    return products;
-}).WithMetadata(new SwaggerOperationAttribute("Method uses EF Core!"));
-app.MapPut("/products/{product}", async(Products product) => {
+app.MapPut("/products/{product}", async (Products product) => {
     Products products = null;
     using (var scope = app.Services.CreateScope())
     {
@@ -85,7 +87,8 @@ app.MapPut("/products/{product}", async(Products product) => {
     }
     return products;
 }).WithMetadata(new SwaggerOperationAttribute("Method uses EF Core!"));
-app.MapDelete("/products/{id}", async(int id) => {
+
+app.MapDelete("/products/{id}", async (int id) => {
     Products products = null;
     using (var scope = app.Services.CreateScope())
     {
@@ -94,4 +97,22 @@ app.MapDelete("/products/{id}", async(int id) => {
     return products;
 }).WithMetadata(new SwaggerOperationAttribute("Method uses EF Core!"));
 
+app.MapPost("/filterProducts/{productFilter}", async (ProductFilter filter) => {
+    IReadOnlyList<Products> productsList = null;
+    using (var scope = app.Services.CreateScope())
+    {
+        productsList = await scope.ServiceProvider.GetRequiredService<IProductRepository>().GetFilteredProductList(filter).ConfigureAwait(false);
+    }
+    return productsList;
+}).WithMetadata(new SwaggerOperationAttribute("Method uses Dapper! Passes a model that can be used to set filter parameters as well as to determine which properties are returned."));
+
+
+//app.MapMethods("filterQuery", new string[] { "QUERY" }, async (ProductFilter filter) => {
+//    IReadOnlyList<Products> productsList = null;
+//    using (var scope = app.Services.CreateScope())
+//    {
+//        productsList = await scope.ServiceProvider.GetRequiredService<IProductRepository>().GetFilteredProductList(filter).ConfigureAwait(false);
+//    }
+//    return productsList;
+//}); 
 app.Run();

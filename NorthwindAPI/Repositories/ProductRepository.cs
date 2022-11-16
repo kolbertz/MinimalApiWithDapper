@@ -23,6 +23,40 @@ namespace NorthwindAPI.Repositories
             return _readDbContext.QueryAsync<Products>(query);
         }
 
+        public Task<IReadOnlyList<Products>> GetFilteredProductList(ProductFilter productFilter)
+        {
+            var baseQuery = "SELECT {0} FROM Products{1}";
+            string selectClause = productFilter != null && productFilter.SelectProperties.Count > 0 ? string.Join(",", productFilter.SelectProperties) : "*";
+            string whereClause = string.Empty;
+            if (productFilter.CategoryId.HasValue)
+            {
+                whereClause += $" WHERE CategoryID = {productFilter.CategoryId}";
+            }
+            if (productFilter.SupplierId.HasValue)
+            {
+                if (string.IsNullOrEmpty(whereClause))
+                {
+                    whereClause += $" WHERE SupplierID = {productFilter.SupplierId}";
+                }
+                else
+                {
+                    whereClause += $" AND SupplierID = {productFilter.SupplierId}";
+                }
+            }
+            if (!string.IsNullOrEmpty(productFilter.ProductName))
+            {
+                if (string.IsNullOrEmpty(whereClause))
+                {
+                    whereClause += $" WHERE ProductName = '{productFilter.ProductName}'";
+                }
+                else
+                {
+                    whereClause += $" AND ProductName = '{productFilter.ProductName}'";
+                }
+            }
+            return _readDbContext.QueryAsync<Products>(string.Format(baseQuery, selectClause, whereClause));
+        }
+
         public Task<Products> GetProductById(int id)
         {
             var query = $"SELECT * FROM Products WHERE ProductID = @ProductId";
