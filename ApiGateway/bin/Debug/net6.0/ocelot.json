@@ -22,8 +22,8 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5002
+          "Host": "minimalapiwithdapper.azurewebsites.net",
+          "Port": 443
         }
       ]
     },
@@ -34,8 +34,8 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5002
+          "Host": "minimalapiwithdapper.azurewebsites.net",
+          "Port": 443
         }
       ]
     },
@@ -46,8 +46,8 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5002
+          "Host": "minimalapiwithdapper.azurewebsites.net",
+          "Port": 443
         }
       ]
     },
@@ -58,8 +58,8 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5002
+          "Host": "minimalapiwithdapper.azurewebsites.net",
+          "Port": 443
         }
       ]
     },
@@ -70,8 +70,8 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5002
+          "Host": "minimalapiwithdapper.azurewebsites.net",
+          "Port": 443
         }
       ]
     }
