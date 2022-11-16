@@ -10,15 +10,15 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5002
+          "Host": "minimalapiwithdapper.azurewebsites.net",
+          "Port": 443
         }
       ]
     },
     {
       "UpstreamPathTemplate": "/gateway/products/{product}",
       "UpstreamHttpMethod": [ "Post" ],
-      "DownstreamPathTemplate": "/api/products/{product}",
+      "DownstreamPathTemplate": "/products/{product}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -30,7 +30,7 @@
     {
       "UpstreamPathTemplate": "/gateway/products/{id}",
       "UpstreamHttpMethod": [ "Get" ],
-      "DownstreamPathTemplate": "/api/products/{id}",
+      "DownstreamPathTemplate": "/products/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -42,7 +42,7 @@
     {
       "UpstreamPathTemplate": "/gateway/products/{product}",
       "UpstreamHttpMethod": [ "Put" ],
-      "DownstreamPathTemplate": "/api/products/{product}",
+      "DownstreamPathTemplate": "/products/{product}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -54,7 +54,7 @@
     {
       "UpstreamPathTemplate": "/gateway/products/{id}",
       "UpstreamHttpMethod": [ "Delete" ],
-      "DownstreamPathTemplate": "/api/products/{id}",
+      "DownstreamPathTemplate": "/products/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -66,7 +66,7 @@
     {
       "UpstreamPathTemplate": "/gateway/filterProducts/{productFilter}",
       "UpstreamHttpMethod": [ "Post" ],
-      "DownstreamPathTemplate": "/api/filterProducts/{productFilter}",
+      "DownstreamPathTemplate": "/filterProducts/{productFilter}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
